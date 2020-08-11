@@ -1,0 +1,6 @@
+Django==2.2.14
+lxml==4.5.2
+setuptools==49.1.0
+beautifulsoup4==4.9.1
+djangorestframework==3.11.0
+celery==4.4.6

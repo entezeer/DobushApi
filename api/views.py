@@ -1,0 +1,41 @@
+from django.shortcuts import render
+
+# Create your views here.
+from rest_framework import generics
+from .models import News, Category
+from .serializers import NewsSerializer
+
+
+class WorldNewsView(generics.ListAPIView):
+    queryset = News.objects.filter(category=Category.objects.get(name='В мире')).all()
+    serializer_class = NewsSerializer
+
+
+class KyrgyzNewsView(generics.ListAPIView):
+    queryset = News.objects.filter(category=Category.objects.get(name='В Кыргызстане')).all()
+    serializer_class = NewsSerializer
+
+
+class MovieNewsView(generics.ListAPIView):
+    queryset = News.objects.filter(category=Category.objects.get(name='Кино')).all()
+    serializer_class = NewsSerializer
+
+
+class MusicNewsView(generics.ListAPIView):
+    queryset = News.objects.filter(category=Category.objects.get(name='Музыка')).all()
+    serializer_class = NewsSerializer
+
+
+class AutoNewsView(generics.ListAPIView):
+    queryset = News.objects.filter(category=Category.objects.get(name='Авто')).all()
+    serializer_class = NewsSerializer
+
+
+class TechnologyNewsView(generics.ListAPIView):
+    queryset = News.objects.filter(category=Category.objects.get(name='Технологии')).all()
+    serializer_class = NewsSerializer
+
+
+class SportNewsView(generics.ListAPIView):
+    queryset = News.objects.filter(category=Category.objects.get(name='Спорт')).all()
+    serializer_class = NewsSerializer
