@@ -24,7 +24,7 @@ SECRET_KEY = '%eln_-()q=q-a=die=jmd%q7)ao9-y80k0req*@5vzu++^7$+2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["", "0.0.0.0"]
+ALLOWED_HOSTS = ["*", "0.0.0.0"]
 
 # Application definition
 
