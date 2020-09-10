@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'dobush.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'dmjua1uqi4ikg',
+        'HOST': 'ec2-46-137-124-19.eu-west-1.compute.amazonaws.com',
+        'PORT': 5432,
+        "USER": 'lluugmvicsnzvg',
+        'PASSWORD': 'baf3d7240259c104d63e9e504281cb71208b2e3c72411ae30f41635bdb9c0ef1'
     }
 }
 
