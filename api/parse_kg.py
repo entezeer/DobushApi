@@ -41,14 +41,17 @@ def sputnik():
 
             content = soup.select('div.b-article')
             print(content)
-            News.objects.create(
-                title=title,
-                content=str(content),
-                url='https://ru.sputnik.kg/news' + a['href'],
-                author='Sputnik.kg',
-                img=img,
-                category=Category.objects.get(name='В Кыргызстане')
-            )
+
+            try:
+                News.objects.create(
+                    title=title,
+                    content=str(content),
+                    url='https://ru.sputnik.kg/news' + a['href'],
+                    author='Sputnik.kg',
+                    img=img,
+                    category=Category.objects.get(name='В Кыргызстане')
+                )
+            except: print()
         except:
             print()
 
@@ -65,14 +68,16 @@ def vesti():
             content = soup.select('div.itemBody')
             print(content)
 
-            News.objects.create(
-                title=title,
-                content=str(content),
-                url='https://vesti.kg' + a['href'],
-                author='Vesti.kg',
-                img=None,
-                category=Category.objects.get(name='В Кыргызстане')
-            )
+            try:
+                News.objects.create(
+                    title=title,
+                    content=str(content),
+                    url='https://vesti.kg' + a['href'],
+                    author='Vesti.kg',
+                    img=None,
+                    category=Category.objects.get(name='В Кыргызстане')
+                )
+            except: print()
         except:
             print()
 
@@ -97,14 +102,17 @@ def gezitter():
 
             content = soup.select('div#mainNew p')
             print(content[0])
-            News.objects.create(
-                title=title,
-                content=str(content),
-                url='https://vesti.kg' + a['href'],
-                author='Vesti.kg',
-                img=img,
-                category=Category.objects.get(name='В Кыргызстане')
-            )
+
+            try:
+                News.objects.create(
+                    title=title,
+                    content=str(content),
+                    url='https://vesti.kg' + a['href'],
+                    author='Vesti.kg',
+                    img=img,
+                    category=Category.objects.get(name='В Кыргызстане')
+                )
+            except: print()
         except:
             print()
 
@@ -127,12 +135,15 @@ def mk():
 
             content = soup.select('div.article__body')
             print(content)
-            News.objects.create(
-                title=title,
-                content=str(content),
-                url=a['href'],
-                author='Mk.kg',
-                img=img,
-                category=Category.objects.get(name='В Кыргызстане')
-            )
+
+            try:
+                News.objects.create(
+                    title=title,
+                    content=str(content),
+                    url=a['href'],
+                    author='Mk.kg',
+                    img=img,
+                    category=Category.objects.get(name='В Кыргызстане')
+                )
+            except: print()
         except: print()

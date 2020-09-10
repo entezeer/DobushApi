@@ -35,14 +35,16 @@ def lenta():
             img = soup.enclosure.url
             url = soup.link
 
-            News.objects.create(
-                title=title,
-                content=str(content),
-                url=url,
-                author='Lenta.ru',
-                img=img,
-                category=Category.objects.get(name='В мире')
-            )
+            try:
+                News.objects.create(
+                    title=title,
+                    content=str(content),
+                    url=url,
+                    author='Lenta.ru',
+                    img=img,
+                    category=Category.objects.get(name='В мире')
+                )
+            except: print()
         except:
             print()
 
@@ -61,14 +63,16 @@ def mir24():
 
             content = soup.find('div', class_='article-content js-mediator-article')
 
-            News.objects.create(
-                title=title,
-                content=str(content),
-                url=j,
-                author='Mir24.tv',
-                img=None,
-                category=Category.objects.get(name='В мире')
-            )
+            try:
+                News.objects.create(
+                    title=title,
+                    content=str(content),
+                    url=j,
+                    author='Mir24.tv',
+                    img=None,
+                    category=Category.objects.get(name='В мире')
+                )
+            except: print()
         except:
             print()
 
@@ -89,15 +93,16 @@ def bbc():
             title = soup.find(class_='story-body__h1').get_text()
 
             content = soup.find(class_='story-body__inner')
-
-            News.objects.create(
-                title=title,
-                content=str(content),
-                url='https://www.bbc.com' + j,
-                author='BBC Russian',
-                img=img,
-                category=Category.objects.get(name='В мире')
-            )
+            try:
+                News.objects.create(
+                    title=title,
+                    content=str(content),
+                    url='https://www.bbc.com' + j,
+                    author='BBC Russian',
+                    img=img,
+                    category=Category.objects.get(name='В мире')
+                )
+            except: print()
         except:
             print()
 

@@ -25,7 +25,7 @@ def update_db():
     # Currency.objects.all().delete()
 
 
-    sleep(2)
+    sleep(120)
 
 
 create_response()

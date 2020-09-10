@@ -7,35 +7,43 @@ from .serializers import NewsSerializer
 
 
 class WorldNewsView(generics.ListAPIView):
-    queryset = News.objects.filter(category=Category.objects.get(name='В мире')).all()
-    serializer_class = NewsSerializer
-
+    try:
+        queryset = News.objects.filter(category=Category.objects.get(name='В мире')).all()
+        serializer_class = NewsSerializer
+    except: print()
 
 class KyrgyzNewsView(generics.ListAPIView):
-    queryset = News.objects.filter(category=Category.objects.get(name='В Кыргызстане')).all()
-    serializer_class = NewsSerializer
-
+    try:
+        queryset = News.objects.filter(category=Category.objects.get(name='В Кыргызстане')).all()
+        serializer_class = NewsSerializer
+    except: print()
 
 class MovieNewsView(generics.ListAPIView):
-    queryset = News.objects.filter(category=Category.objects.get(name='Кино')).all()
-    serializer_class = NewsSerializer
-
+    try:
+        queryset = News.objects.filter(category=Category.objects.get(name='Кино')).all()
+        serializer_class = NewsSerializer
+    except: print()
 
 class MusicNewsView(generics.ListAPIView):
-    queryset = News.objects.filter(category=Category.objects.get(name='Музыка')).all()
-    serializer_class = NewsSerializer
-
+    try:
+        queryset = News.objects.filter(category=Category.objects.get(name='Музыка')).all()
+        serializer_class = NewsSerializer
+    except: print()
 
 class AutoNewsView(generics.ListAPIView):
-    queryset = News.objects.filter(category=Category.objects.get(name='Авто')).all()
-    serializer_class = NewsSerializer
-
+    try:
+        queryset = News.objects.filter(category=Category.objects.get(name='Авто')).all()
+        serializer_class = NewsSerializer
+    except: print()
 
 class TechnologyNewsView(generics.ListAPIView):
-    queryset = News.objects.filter(category=Category.objects.get(name='Технологии')).all()
-    serializer_class = NewsSerializer
-
+    try:
+        queryset = News.objects.filter(category=Category.objects.get(name='Технологии')).all()
+        serializer_class = NewsSerializer
+    except: print()
 
 class SportNewsView(generics.ListAPIView):
-    queryset = News.objects.filter(category=Category.objects.get(name='Спорт')).all()
-    serializer_class = NewsSerializer
+    try:
+        queryset = News.objects.filter(category=Category.objects.get(name='Спорт')).all()
+        serializer_class = NewsSerializer
+    except: print()
