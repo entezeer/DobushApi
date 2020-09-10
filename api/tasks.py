@@ -16,19 +16,6 @@ def create_response():
     parse_world.mir24()
     parse_world.bbc()
     parse_kg.getNews()
-
-@shared_task
-# some heavy stuff here
-def update_db():
-    print('Updating data ..')
-
-    # Currency.objects.all().delete()
-
-
     sleep(120)
 
-
 create_response()
-while True:
-    sleep(60)
-    # update_currency()
