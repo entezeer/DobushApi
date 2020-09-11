@@ -107,8 +107,8 @@ def gezitter():
                 News.objects.create(
                     title=title,
                     content=str(content),
-                    url='https://vesti.kg' + a['href'],
-                    author='Vesti.kg',
+                    url='https://m.gezitter.org' + a['href'],
+                    author='Gezitter.kg',
                     img=img,
                     category=Category.objects.get(name='В Кыргызстане')
                 )
