@@ -1,10 +1,11 @@
 from time import sleep
+
+from celery import shared_task
+
 from . import parse_world, parse_kg
 from .models import News
-import celery
-app = celery.Celery('example')
 
-@app.task
+@shared_task
 def create_response():
     News.objects.all().delete()
     # parse_world.lenta()
