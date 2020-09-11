@@ -9,7 +9,7 @@ import celery
 app = celery.Celery('example')
 
 
-@app.task
+@shared_task
 def create_response():
     News.objects.all().delete()
     # parse_world.lenta()
