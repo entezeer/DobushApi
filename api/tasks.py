@@ -1,13 +1,12 @@
 from time import sleep
 
 from celery import shared_task
-from celery.schedules import crontab
-from celery.task import periodic_task
 
 from . import parse_world, parse_kg
 from .models import News
 
-@periodic_task(run_every=crontab(minute=60))
+
+@shared_task
 def create_response():
     News.objects.all().delete()
     # parse_world.lenta()
@@ -17,5 +16,6 @@ def create_response():
     sleep(3600)
 
 
-# create_response()
+while True:
+    create_response()
 # celery -A dobush worker -l info
