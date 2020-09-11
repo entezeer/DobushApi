@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import djcelery
+djcelery.setup_loader()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -67,7 +69,16 @@ TEMPLATES = [
     },
 ]
 
-CELERY_BROKER_URL = 'amqp://localhost'
+# REDIS CONFIG
+REDIS_URL = os.environ.get('REDIS_URL')
+BROKER_CONNECTION_MAX_RETRIES = os.environ.get('BROKER_CONNECTION_MAX_RETRIES', None)
+BROKER_POOL_LIMIT = os.environ.get('BROKER_POOL_LIMIT', None)
+
+# CELERY CONFIG
+CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL', REDIS_URL)
+CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND', REDIS_URL)
+CELERY_REDIS_MAX_CONNECTIONS = os.environ.get('CELERY_REDIS_MAX_CONNECTIONS', 5)
+CELERYD_CONCURRENCY = os.environ.get('CELERYD_CONCURRENCY', 1)
 
 WSGI_APPLICATION = 'dobush.wsgi.application'
 

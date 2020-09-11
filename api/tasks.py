@@ -1,15 +1,10 @@
 from time import sleep
-from celery import shared_task
-from bs4 import BeautifulSoup
-from urllib.request import urlopen, Request
-
 from . import parse_world, parse_kg
 from .models import News
+import celery
+app = celery.Celery('example')
 
-
-# celery -A dobush worker -l info
-@shared_task
-# some heavy stuff here
+@app.task
 def create_response():
     News.objects.all().delete()
     # parse_world.lenta()
@@ -18,4 +13,5 @@ def create_response():
     parse_kg.getNews()
     sleep(120)
 
-create_response()
+# celery -A dobush worker -l info
+
