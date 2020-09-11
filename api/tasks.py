@@ -4,8 +4,12 @@ from celery import shared_task
 
 from . import parse_world, parse_kg
 from .models import News
+import celery
 
-@shared_task
+app = celery.Celery('example')
+
+
+@app.task
 def create_response():
     News.objects.all().delete()
     # parse_world.lenta()
@@ -15,4 +19,3 @@ def create_response():
     sleep(120)
 
 # celery -A dobush worker -l info
-
