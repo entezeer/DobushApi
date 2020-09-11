@@ -4,9 +4,6 @@ from celery import shared_task
 
 from . import parse_world, parse_kg
 from .models import News
-import celery
-
-app = celery.Celery('example')
 
 
 @shared_task
@@ -16,6 +13,7 @@ def create_response():
     parse_world.mir24()
     parse_world.bbc()
     parse_kg.getNews()
-    sleep(120)
+    sleep(3600)
 
+create_response()
 # celery -A dobush worker -l info

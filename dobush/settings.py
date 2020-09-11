@@ -72,6 +72,7 @@ CELERY_TASK_SERIALIZER = 'json'
 BROKER_POOL_LIMIT = 3
 
 CELERY_BROKER_URL = 'amqps://yhcewxvc:9aVtjBUf48xZYxqJ9kL0N3CpEoWlre5K@bonobo.rmq.cloudamqp.com/yhcewxvc'
+BROKER_URL = 'amqps://yhcewxvc:9aVtjBUf48xZYxqJ9kL0N3CpEoWlre5K@bonobo.rmq.cloudamqp.com/yhcewxvc'
 
 WSGI_APPLICATION = 'dobush.wsgi.application'
 
