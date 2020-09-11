@@ -17,5 +17,5 @@ def create_response():
     sleep(3600)
 
 
-create_response()
+# create_response()
 # celery -A dobush worker -l info
