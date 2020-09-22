@@ -67,12 +67,12 @@ TEMPLATES = [
     },
 ]
 
-# CELERY_TASK_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
 # CELERY_BROKER_URL = os.environ.get('HEROKU_REDIS_CHARCOAL_URL', 'redis://localhost:6379/0')
-# BROKER_POOL_LIMIT = 3
+BROKER_POOL_LIMIT = 3
 
-# CELERY_BROKER_URL = 'amqps://yhcewxvc:9aVtjBUf48xZYxqJ9kL0N3CpEoWlre5K@bonobo.rmq.cloudamqp.com/yhcewxvc'
-# BROKER_URL = 'amqps://yhcewxvc:9aVtjBUf48xZYxqJ9kL0N3CpEoWlre5K@bonobo.rmq.cloudamqp.com/yhcewxvc'
+CELERY_BROKER_URL = 'amqps://yhcewxvc:9aVtjBUf48xZYxqJ9kL0N3CpEoWlre5K@bonobo.rmq.cloudamqp.com/yhcewxvc'
+BROKER_URL = 'amqps://yhcewxvc:9aVtjBUf48xZYxqJ9kL0N3CpEoWlre5K@bonobo.rmq.cloudamqp.com/yhcewxvc'
 
 WSGI_APPLICATION = 'dobush.wsgi.application'
 
