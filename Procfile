@@ -1,2 +1,2 @@
 web: gunicorn dobush.wsgi
-worker: celery -A dobush worker -B -E --loglevel=info
+worker: celery worker -A dobush -l info
