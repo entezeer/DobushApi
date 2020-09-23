@@ -2,7 +2,7 @@ from time import sleep
 
 from celery import shared_task
 
-from . import parse_world, parse_kg
+from . import parse_world, parse_kg, parse_tech, parse_sports, parse_movie, parse_auto, parse_music
 from .models import News
 
 
@@ -13,6 +13,11 @@ def create_request():
     parse_world.mir24()
     parse_world.bbc()
     parse_kg.getNews()
+    parse_sports.getNews()
+    parse_tech.getNews()
+    parse_auto.getNews()
+    parse_music.getNews()
+    parse_movie.getNews()
     sleep(3600)
 
 

@@ -16,11 +16,13 @@ headers = {
 }
 session = requests.session()
 
+
 def getNews():
     sputnik()
     vesti()
     mk()
     gezitter()
+
 
 def sputnik():
     response = requests.get('https://ru.sputnik.kg/news', headers=headers)
@@ -51,9 +53,11 @@ def sputnik():
                     img=img,
                     category=Category.objects.get(name='В Кыргызстане')
                 )
-            except: print()
+            except:
+                print()
         except:
             print()
+
 
 def vesti():
     response = requests.get('https://vesti.kg', headers=headers)
@@ -77,9 +81,11 @@ def vesti():
                     img=None,
                     category=Category.objects.get(name='В Кыргызстане')
                 )
-            except: print()
+            except:
+                print()
         except:
             print()
+
 
 def gezitter():
     response = requests.get('https://m.gezitter.org', headers=headers)
@@ -112,9 +118,11 @@ def gezitter():
                     img=img,
                     category=Category.objects.get(name='В Кыргызстане')
                 )
-            except: print()
+            except:
+                print()
         except:
             print()
+
 
 def mk():
     response = requests.get('https://www.mk.ru/news', headers=headers)
@@ -145,5 +153,7 @@ def mk():
                     img=img,
                     category=Category.objects.get(name='В Кыргызстане')
                 )
-            except: print()
-        except: print()
+            except:
+                print()
+        except:
+            print()

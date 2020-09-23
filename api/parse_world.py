@@ -16,6 +16,10 @@ headers = {
 }
 session = requests.session()
 
+def getNews():
+    mir24()
+    bbc()
+
 
 def lenta():
     responce = session.get('https://lenta.ru/rss/news', headers=headers)
