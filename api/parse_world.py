@@ -20,28 +20,28 @@ def getNews():
     News.objects.filter(category=Category.objects.get(name='В мире')).all().delete()
     mir24()
     bbc()
+    lenta()
 
 
 def lenta():
-    responce = session.get('https://lenta.ru/rss/news', headers=headers)
-
-    bs = BeautifulSoup(responce.text, 'lxml')
-    item = [i for i in bs.find_all('item')][0:10]
-    for j in item:
+    response = session.get('https://lenta.ru/rss/news', headers=headers)
+    bs = BeautifulSoup(response.text, 'html.parser')
+    for a in bs.select('item')[0:10]:
         try:
-            # print(j)
-            soup = BeautifulSoup(j.text, 'lxml')
-            # print(soup)
+            try:
+                img = a.find('enclosure').get('url')
+            except:
+                img = None
 
-            title = j.title
-            # print(title)
-            content = soup.find('description')
-            img = soup.enclosure.url
-            url = soup.link
+            title = a.find('title').text
+
+            content = a.find('description').text
+
+            url = a.find('guid').text
 
             News.objects.create(
                     title=title,
-                    content=str(content),
+                    content=content,
                     url=url,
                     author='Lenta.ru',
                     img=img,
@@ -80,23 +80,24 @@ def mir24():
 def bbc():
     response = session.get('https://www.bbc.com/russian', headers=headers)
     bs = BeautifulSoup(response.text, 'lxml')
-    source = [a['href'] for a in bs.find_all('a', {'class': 'Link-sc-1dvfmi3-5 jeUMCT'})][0:10]
-    for j in source:
+    for a in bs.select('li div a[href]')[0:15]:
         try:
-            response_ = session.get('https://www.bbc.com' + j, headers=headers)
+            response_ = session.get('https://www.bbc.com' + a['href'], headers=headers)
             soup = BeautifulSoup(response_.text, 'lxml')
             try:
-                img = soup.find('img', class_='js-image-replace').get('src')
+                imgs = soup.select('figure div img')
+                for i in imgs:
+                    img = i.get('src')
             except:
                 img = None
 
-            title = soup.find(class_='story-body__h1').get_text()
+            title = soup.find('h1', id='content').get_text()
 
-            content = soup.find(class_='story-body__inner')
+            content = soup.find('main')
             News.objects.create(
                     title=title,
                     content=str(content),
-                    url='https://www.bbc.com' + j,
+                    url='https://www.bbc.com' + a['href'],
                     author='BBC Russian',
                     img=img,
                     category=Category.objects.get(name='В мире')
@@ -104,10 +105,3 @@ def bbc():
         except:
             print()
 
-
-def regnum():
-    print()
-
-
-def deutcheWelle():
-    print()
