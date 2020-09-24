@@ -17,4 +17,5 @@ headers = {
 session = requests.session()
 
 def getNews():
+    # News.objects.filter(category=Category.objects.get(name='В Кыргызстане')).all().delete()
     print()

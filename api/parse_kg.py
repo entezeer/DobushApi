@@ -18,6 +18,7 @@ session = requests.session()
 
 
 def getNews():
+    News.objects.filter(category=Category.objects.get(name='В Кыргызстане')).all().delete()
     sputnik()
     vesti()
     mk()
@@ -32,7 +33,6 @@ def sputnik():
             response_ = requests.get('https://ru.sputnik.kg' + a['href'], headers=headers)
             soup = BeautifulSoup(response_.content, 'lxml')
             title = soup.find('div', class_='b-article__header-title').text
-            print(title)
 
             try:
                 images = soup.find('div', {"class": "b-article__header"}).findChildren('img')
@@ -42,7 +42,6 @@ def sputnik():
                 img = None
 
             content = soup.select('div.b-article')
-            print(content)
 
             try:
                 News.objects.create(
@@ -67,10 +66,8 @@ def vesti():
             response_ = requests.get('https://vesti.kg' + a['href'], headers=headers)
             soup = BeautifulSoup(response_.content, 'lxml')
             title = soup.find('h1').text
-            print(title)
 
             content = soup.select('div.itemBody')
-            print(content)
 
             try:
                 News.objects.create(
@@ -95,7 +92,6 @@ def gezitter():
             response_ = requests.get('https://m.gezitter.org' + a['href'], headers=headers)
             soup = BeautifulSoup(response_.content, 'lxml')
             title = soup.find('h1', class_='mgb6').text
-            print(title)
 
             try:
                 images = soup.find('div', {"id": "mainNew"}).findChildren('img')
@@ -104,15 +100,12 @@ def gezitter():
             except:
                 img = None
 
-            print(img)
-
             content = soup.select('div#mainNew p')
-            print(content[0])
 
             try:
                 News.objects.create(
                     title=title,
-                    content=str(content),
+                    content=str(content[0]),
                     url='https://m.gezitter.org' + a['href'],
                     author='Gezitter.kg',
                     img=img,
@@ -132,17 +125,14 @@ def mk():
             response_ = requests.get(a['href'], headers=headers)
             soup = BeautifulSoup(response_.content, 'lxml')
             title = soup.find('h1', class_='article__title').text
-            print(title)
 
             try:
                 img = soup.find('img', {"class": "article__picture-image"}).get('src')
             except:
                 img = None
 
-            print(img)
 
             content = soup.select('div.article__body')
-            print(content)
 
             try:
                 News.objects.create(

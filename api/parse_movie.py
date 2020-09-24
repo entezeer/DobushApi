@@ -18,6 +18,7 @@ session = requests.session()
 
 
 def getNews():
+    News.objects.filter(category=Category.objects.get(name='Кино')).all().delete()
     getMovieNews()
 
 

@@ -18,6 +18,7 @@ session = requests.session()
 
 
 def getNews():
+    News.objects.filter(category=Category.objects.get(name='Спорт')).all().delete()
     getChampionatNews()
     getSportsRuNews()
 
@@ -63,10 +64,8 @@ def getSportsRuNews():
             response_ = requests.get('https://www.sports.ru' + a['href'], headers=headers)
             soup = BeautifulSoup(response_.content, 'lxml')
             title = soup.find('h1', class_='h1_size_tiny').text
-            print(title)
 
             content = soup.select('div.news-item__content')
-            print(content)
 
             try:
                 News.objects.create(

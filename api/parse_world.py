@@ -17,6 +17,7 @@ headers = {
 session = requests.session()
 
 def getNews():
+    News.objects.filter(category=Category.objects.get(name='В мире')).all().delete()
     mir24()
     bbc()
 
@@ -25,7 +26,6 @@ def lenta():
     responce = session.get('https://lenta.ru/rss/news', headers=headers)
 
     bs = BeautifulSoup(responce.text, 'lxml')
-    print(bs)
     item = [i for i in bs.find_all('item')][0:10]
     for j in item:
         try:

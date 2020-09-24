@@ -18,6 +18,7 @@ session = requests.session()
 
 
 def getNews():
+    News.objects.filter(category=Category.objects.get(name='Технологии')).all().delete()
     getHitechNews()
     getItWorldNews()
 
@@ -25,7 +26,6 @@ def getNews():
 def getHitechNews():
     response = requests.get('https://hi-tech.news', headers=headers)
     bs = BeautifulSoup(response.content, 'lxml')
-    # print(bs)
     for a in bs.select('div.post-content a.post-title-a[href]')[0:10]:
         try:
             response_ = requests.get(a['href'], headers=headers)
@@ -61,7 +61,6 @@ def getItWorldNews():
     response = requests.get('https://www.it-world.ru/it-news/tech', headers=headers)
     bs = BeautifulSoup(response.content, 'lxml')
     for a in bs.select('div.title a[href]')[0:10]:
-        print(a['href'])
         try:
             response_ = requests.get('https://www.it-world.ru' + a['href'], headers=headers)
             soup = BeautifulSoup(response_.content, 'lxml')
