@@ -34,7 +34,7 @@ def getMovieNews():
             try:
                 images = soup.find('div', {"class": "media-news__main-img-container"}).findChildren('img')
                 for i in images:
-                    img = 'https' + i.get('src')
+                    img = 'https:' + i.get('src')
             except:
                 img = None
 
