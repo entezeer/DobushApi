@@ -76,17 +76,17 @@ def getItWorldNews():
 
             content = soup.select('div.detail')[0]
 
-            h = html2text.HTML2Text()
-            h.ignore_links = True
-            h.ignore_images = True
-            h.ignore_emphasis = True
-
-            content_ = h.handle(str(content))
+            # h = html2text.HTML2Text()
+            # h.ignore_links = True
+            # h.ignore_images = True
+            # h.ignore_emphasis = True
+            #
+            # content_ = h.handle(str(content))
 
             try:
                 News.objects.create(
                     title=title,
-                    content=content_,
+                    content=str(content),
                     url='https://www.it-world.ru' + a['href'],
                     author='It-World.ru',
                     img=img,
