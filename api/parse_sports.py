@@ -39,7 +39,7 @@ def getChampionatNews():
             except:
                 img = None
 
-            content = soup.select('div.article-content')
+            content = soup.select('div.article-content')[0]
 
             try:
                 News.objects.create(
@@ -65,7 +65,7 @@ def getSportsRuNews():
             soup = BeautifulSoup(response_.content, 'lxml')
             title = soup.find('h1', class_='h1_size_tiny').text
 
-            content = soup.select('div.news-item__content')
+            content = soup.select('div.news-item__content')[0]
 
             try:
                 News.objects.create(

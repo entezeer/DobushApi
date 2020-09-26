@@ -39,7 +39,7 @@ def getHitechNews():
             except:
                 img = None
 
-            content = soup.select('div.the-excerpt')
+            content = soup.select('div.the-excerpt')[0]
 
             try:
                 News.objects.create(

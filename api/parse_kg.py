@@ -19,13 +19,13 @@ session = requests.session()
 
 def getNews():
     News.objects.filter(category=Category.objects.get(name='В Кыргызстане')).all().delete()
-    sputnik()
-    vesti()
-    mk()
-    gezitter()
+    getSputnikNews()
+    getVestiKgNews()
+    # mk()
+    getGezitterNews()
 
 
-def sputnik():
+def getSputnikNews():
     response = requests.get('https://ru.sputnik.kg/news', headers=headers)
     bs = BeautifulSoup(response.content, 'lxml')
     for a in bs.select('h2.b-plainlist__title a[href]')[0:10]:
@@ -41,7 +41,7 @@ def sputnik():
             except:
                 img = None
 
-            content = soup.select('div.b-article')
+            content = soup.select('div.b-article')[0]
 
             try:
                 News.objects.create(
@@ -58,7 +58,7 @@ def sputnik():
             print()
 
 
-def vesti():
+def getVestiKgNews():
     response = requests.get('https://vesti.kg', headers=headers)
     bs = BeautifulSoup(response.content, 'lxml')
     for a in bs.select('div.itemBody h2 a[href]')[0:10]:
@@ -67,7 +67,7 @@ def vesti():
             soup = BeautifulSoup(response_.content, 'lxml')
             title = soup.find('h1').text
 
-            content = soup.select('div.itemBody')
+            content = soup.select('div.itemBody')[0]
 
             try:
                 News.objects.create(
@@ -84,7 +84,7 @@ def vesti():
             print()
 
 
-def gezitter():
+def getGezitterNews():
     response = requests.get('https://m.gezitter.org', headers=headers)
     bs = BeautifulSoup(response.content, 'lxml')
     for a in bs.select('ul.newsBlock li a[href]')[0:10]:

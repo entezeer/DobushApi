@@ -38,7 +38,7 @@ def getMovieNews():
             except:
                 img = None
 
-            content = soup.select('div.media-post-setka-inner-html')
+            content = soup.select('div.media-post-setka-inner-html')[0]
 
             try:
                 News.objects.create(
