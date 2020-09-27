@@ -41,7 +41,7 @@ def getSputnikNews():
             except:
                 img = None
 
-            content = soup.select('div.b-article')[0]
+            content = soup.select('div.b-article__text')[0]
 
             try:
                 News.objects.create(

@@ -74,14 +74,10 @@ def getItWorldNews():
             except:
                 img = None
 
-            content = soup.select('div.detail')[0]
-
-            # h = html2text.HTML2Text()
-            # h.ignore_links = True
-            # h.ignore_images = True
-            # h.ignore_emphasis = True
-            #
-            # content_ = h.handle(str(content))
+            content_ = soup.select('div.detail p')
+            content_.remove(content_[0])
+            content_.remove(content_[0])
+            content = ' '.join([str(elem) for elem in content_])
 
             try:
                 News.objects.create(
