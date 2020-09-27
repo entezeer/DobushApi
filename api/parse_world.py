@@ -93,7 +93,10 @@ def bbc():
 
             title = soup.find('h1', id='content').get_text()
 
-            content = soup.find('main')
+            content_ = soup.select('div.GridItemConstrainedMedium-sc-12lwanc-2')
+
+            content = ' '.join([str(elem) for elem in content_])
+
             News.objects.create(
                     title=title,
                     content=str(content),
