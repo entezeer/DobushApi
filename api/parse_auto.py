@@ -20,6 +20,7 @@ session = requests.session()
 
 def getNews():
     getAdtNews()
+    getAutoNews()
 
 
 def getAdtNews():
