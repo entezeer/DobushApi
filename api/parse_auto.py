@@ -68,7 +68,8 @@ def getAutoNews():
         try:
             response_ = requests.get(a['href'], headers=headers)
             soup = BeautifulSoup(response_.content, 'lxml')
-            title = soup.find('h1', class_='js-slide-title').text
+            title_ = soup.find('h1', class_='js-slide-title').text
+            title = title_.rstrip()
 
             try:
                 images = soup.find('div', {"class": "article__main-image__image"}).findChildren('img')
