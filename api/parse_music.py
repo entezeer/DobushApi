@@ -17,5 +17,36 @@ headers = {
 session = requests.session()
 
 def getNews():
-    # News.objects.filter(category=Category.objects.get(name='В Кыргызстане')).all().delete()
-    print()
+    News.objects.filter(category=Category.objects.get(name='Музыка')).all().delete()
+    getMusicNews()
+
+def getMusicNews():
+    response = session.get('https://rg.ru/tema/kultura/music/pop/', headers=headers)
+    bs = BeautifulSoup(response.text, 'lxml')
+    for a in bs.select('h2.b-news-inner__list-item-title a[href]')[0:5]:
+        try:
+            response_ = session.get('https://rg.ru' + a['href'], headers=headers)
+            soup = BeautifulSoup(response_.text, 'lxml')
+            try:
+                img = soup.find('img', class_='b-material-img__img').get('src')
+            except:
+                img = None
+
+            title = soup.find('h1', class_='b-material-head__title').get_text()
+
+            content = soup.select('div.b-material-wrapper__text')[0]
+
+            try:
+                News.objects.create(
+                    title=title,
+                    content=str(content),
+                    url='https://rg.ru' + a['href'],
+                    author='rg.ru',
+                    img=img,
+                    category=Category.objects.get(name='Музыка')
+                )
+            except:
+                print()
+
+        except:
+            print()
