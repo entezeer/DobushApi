@@ -64,7 +64,7 @@ def getAutoNews():
     response = requests.get('https://www.autonews.ru/tags/?tag=%D0%9D%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D0%B8',
                             headers=headers)
     bs = BeautifulSoup(response.content, 'lxml')
-    for a in bs.select('a.item-big__link[href]')[0:5]:
+    for a in bs.select('a.item-big__link[href]')[0:10]:
         try:
             response_ = requests.get(a['href'], headers=headers)
             soup = BeautifulSoup(response_.content, 'lxml')

@@ -26,7 +26,7 @@ def getNews():
 def getChampionatNews():
     response = requests.get('https://www.championat.com/articles/1.html', headers=headers)
     bs = BeautifulSoup(response.content, 'lxml')
-    for a in bs.select('div.article-preview__info a.article-preview__subtitle[href]')[0:10]:
+    for a in bs.select('div.article-preview__info a.article-preview__subtitle[href]')[0:15]:
         try:
             response_ = requests.get('https://www.championat.com' + a['href'], headers=headers)
             soup = BeautifulSoup(response_.content, 'lxml')
@@ -59,7 +59,7 @@ def getChampionatNews():
 def getSportsRuNews():
     response = requests.get('https://www.sports.ru/news', headers=headers)
     bs = BeautifulSoup(response.content, 'lxml')
-    for a in bs.select('a.short-text[href]')[0:15]:
+    for a in bs.select('a.short-text[href]')[0:10]:
         try:
             response_ = requests.get('https://www.sports.ru' + a['href'], headers=headers)
             soup = BeautifulSoup(response_.content, 'lxml')

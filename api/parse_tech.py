@@ -27,7 +27,7 @@ def getNews():
 def getHitechNews():
     response = requests.get('https://hi-tech.news', headers=headers)
     bs = BeautifulSoup(response.content, 'lxml')
-    for a in bs.select('div.post-content a.post-title-a[href]')[0:10]:
+    for a in bs.select('div.post-content a.post-title-a[href]')[0:15]:
         try:
             response_ = requests.get(a['href'], headers=headers)
             soup = BeautifulSoup(response_.content, 'lxml')

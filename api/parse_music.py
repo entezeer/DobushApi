@@ -23,7 +23,7 @@ def getNews():
 def getMusicNews():
     response = session.get('https://rg.ru/tema/kultura/music/pop/', headers=headers)
     bs = BeautifulSoup(response.text, 'lxml')
-    for a in bs.select('h2.b-news-inner__list-item-title a[href]')[0:5]:
+    for a in bs.select('h2.b-news-inner__list-item-title a[href]')[0:15]:
         try:
             response_ = session.get('https://rg.ru' + a['href'], headers=headers)
             soup = BeautifulSoup(response_.text, 'lxml')
