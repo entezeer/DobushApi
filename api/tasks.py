@@ -7,6 +7,7 @@ from . import parse_world, parse_kg, parse_tech, parse_sports, parse_movie, pars
 
 @shared_task
 def create_request():
+    sleep(60)
     parse_world.getNews()
     parse_kg.getNews()
     parse_sports.getNews()
