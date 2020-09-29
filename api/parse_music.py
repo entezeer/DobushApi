@@ -42,7 +42,7 @@ def getMusicNews():
                     content=str(content),
                     url='https://rg.ru' + a['href'],
                     author='rg.ru',
-                    img=img,
+                    img=None,
                     category=Category.objects.get(name='Музыка')
                 )
             except:

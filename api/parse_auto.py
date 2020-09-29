@@ -64,12 +64,14 @@ def getAutoNews():
     response = requests.get('https://www.autonews.ru/tags/?tag=%D0%9D%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D0%B8',
                             headers=headers)
     bs = BeautifulSoup(response.content, 'lxml')
-    for a in bs.select('a.item-big__link[href]')[0:10]:
+    ar = bs.select('a.item-big__link[href]')[0:20]
+    newAr = [v for k, v in enumerate(ar) if not k % 2]
+    for a in newAr:
         try:
             response_ = requests.get(a['href'], headers=headers)
             soup = BeautifulSoup(response_.content, 'lxml')
             title_ = soup.find('h1', class_='js-slide-title').text
-            title = title_.rstrip()
+            title = title_.rstrip().strip()
 
             try:
                 images = soup.find('div', {"class": "article__main-image__image"}).findChildren('img')
