@@ -47,7 +47,7 @@ def getSputnikNews():
                 News.objects.create(
                     title=title,
                     content=str(content),
-                    url='https://ru.sputnik.kg/news' + a['href'],
+                    url='https://ru.sputnik.kg' + a['href'],
                     author='Sputnik.kg',
                     img=img,
                     category=Category.objects.get(name='В Кыргызстане')
