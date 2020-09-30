@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .views import WorldNewsView, KyrgyzNewsView, SportNewsView, TechnologyNewsView, MovieNewsView, MusicNewsView, \
-    AutoNewsView
+    AutoNewsView, ForeignNewsView
 
 urlpatterns = (
     path('world_news', WorldNewsView.as_view()),
@@ -10,5 +10,6 @@ urlpatterns = (
     path('tech_news', TechnologyNewsView.as_view()),
     path('movie_news', MovieNewsView.as_view()),
     path('music_news', MusicNewsView.as_view()),
-    path('auto_news', AutoNewsView.as_view())
+    path('auto_news', AutoNewsView.as_view()),
+    path('foreign_news', ForeignNewsView.as_view())
 )

@@ -61,3 +61,11 @@ class SportNewsView(generics.ListAPIView):
     except:
         queryset = News.objects.all()
         serializer_class = NewsSerializer
+
+class ForeignNewsView(generics.ListAPIView):
+    try:
+        queryset = News.objects.filter(category=Category.objects.get(name="Иностранные")).all()
+        serializer_class = NewsSerializer
+    except:
+        queryset = News.objects.all()
+        serializer_class = NewsSerializer

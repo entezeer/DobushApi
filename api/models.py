@@ -45,6 +45,7 @@ class News(models.Model):
     img = models.CharField(max_length=250, default=None, null=True, blank=True)
     published = models.DateTimeField(default=timezone.now)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    language = models.CharField(max_length=250, default=None)
 
     class Meta:
         verbose_name = 'Новость'
