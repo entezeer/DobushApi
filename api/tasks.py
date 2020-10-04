@@ -2,7 +2,7 @@ from time import sleep
 
 from celery import shared_task
 
-from . import parse_world, parse_kg, parse_tech, parse_sports, parse_movie, parse_auto, parse_music
+from . import parse_world, parse_kg, parse_tech, parse_sports, parse_movie, parse_auto, parse_music, update_dynos
 
 
 @shared_task
@@ -15,7 +15,11 @@ def create_request():
     parse_auto.getNews()
     parse_music.getNews()
     parse_movie.getNews()
-    sleep(3600)
+    update_dynos.update()
+    sleep(1500)
+    update_dynos.update()
+    sleep(1500)
+    update_dynos.update()
 
 
 while True:
