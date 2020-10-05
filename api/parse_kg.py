@@ -85,11 +85,11 @@ def getVestiKgNews():
 
 
 def getGezitterNews():
-    response = requests.get('https://www.gezitter.org/choose/', headers=headers)
+    response = requests.get('https://www.gezitter.org', headers=headers)
     bs = BeautifulSoup(response.content, 'lxml')
-    for a in bs.select('ul#contentWrapper li a[href]')[0:10]:
+    for a in bs.select('ul.hfeed li h2 a.url')[0:10]:
         try:
-            response_ = requests.get('https://m.gezitter.org' + a['href'], headers=headers)
+            response_ = requests.get('https://gezitter.org' + a['href'], headers=headers)
             soup = BeautifulSoup(response_.content, 'lxml')
             title = soup.find('h1', class_='entry-title').text
 
