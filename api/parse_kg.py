@@ -85,13 +85,13 @@ def getVestiKgNews():
 
 
 def getGezitterNews():
-    response = requests.get('https://m.gezitter.org', headers=headers)
+    response = requests.get('https://www.gezitter.org/choose/', headers=headers)
     bs = BeautifulSoup(response.content, 'lxml')
-    for a in bs.select('ul.newsBlock li a[href]')[0:10]:
+    for a in bs.select('ul#contentWrapper li a[href]')[0:10]:
         try:
             response_ = requests.get('https://m.gezitter.org' + a['href'], headers=headers)
             soup = BeautifulSoup(response_.content, 'lxml')
-            title = soup.find('h1', class_='mgb6').text
+            title = soup.find('h1', class_='entry-title').text
 
             try:
                 images = soup.find('div', {"id": "mainNew"}).findChildren('img')
@@ -100,7 +100,7 @@ def getGezitterNews():
             except:
                 img = None
 
-            content = soup.select('div#mainNew p')
+            content = soup.select('div.entry-content p')
 
             try:
                 News.objects.create(
