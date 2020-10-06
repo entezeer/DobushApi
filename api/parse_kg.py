@@ -22,7 +22,7 @@ def getNews():
     getSputnikNews()
     getVestiKgNews()
     # mk()
-    getGezitterNews()
+    getAkipressNews()
 
 
 def getSputnikNews():
@@ -84,30 +84,30 @@ def getVestiKgNews():
             print()
 
 
-def getGezitterNews():
-    response = requests.get('https://www.gezitter.org', headers=headers)
+def getAkipressNews():
+    response = requests.get('https://kg.akipress.org/?news&place=show_v2', headers=headers)
     bs = BeautifulSoup(response.content, 'lxml')
-    for a in bs.select('ul.hfeed li h2 a.url')[0:10]:
+    for a in bs.select('div.news_list div.elem a')[0:10]:
         try:
-            response_ = requests.get('https://gezitter.org' + a['href'], headers=headers)
+            response_ = requests.get(a['href'], headers=headers)
             soup = BeautifulSoup(response_.content, 'lxml')
-            title = soup.find('h1', class_='entry-title').text
+            title = soup.find('h1', class_='news-title').text
 
             try:
-                images = soup.find('div', {"id": "mainNew"}).findChildren('img')
+                images = soup.find('div', {"class": "cast_elem_content"}).findChildren('img')
                 for i in images:
                     img = 'https://m.gezitter.org' + i.get('src')
             except:
                 img = None
 
-            content = soup.select('div.entry-content p')
+            content = soup.select('div.colored-link-text')
 
             try:
                 News.objects.create(
                     title=title,
                     content=str(content[0]),
-                    url='https://m.gezitter.org' + a['href'],
-                    author='Gezitter.kg',
+                    url=a['href'],
+                    author='Akipress.org',
                     img=img,
                     category=Category.objects.get(name='В Кыргызстане')
                 )
