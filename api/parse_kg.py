@@ -96,7 +96,7 @@ def getAkipressNews():
             try:
                 images = soup.find('div', {"class": "cast_elem_content"}).findChildren('img')
                 for i in images:
-                    img = 'https://m.gezitter.org' + i.get('src')
+                    img = 'https:' + i.get('src')
             except:
                 img = None
 
