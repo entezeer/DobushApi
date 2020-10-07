@@ -82,12 +82,14 @@ WSGI_APPLICATION = 'dobush.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dmjua1uqi4ikg',
-        'HOST': 'ec2-46-137-124-19.eu-west-1.compute.amazonaws.com',
+        'NAME': 'd7f1c9hh8pdpbk',
+        'HOST': 'ec2-54-170-109-0.eu-west-1.compute.amazonaws.com',
         'PORT': 5432,
-        "USER": 'lluugmvicsnzvg',
-        'PASSWORD': 'baf3d7240259c104d63e9e504281cb71208b2e3c72411ae30f41635bdb9c0ef1'
+        "USER": 'ngveabouluddqv',
+        'PASSWORD': '48f23c0a0b1ed2de9efa7c7e9fd522c230a2d19b2eabe237df639e2b49e1d82c'
     }
+
+# postgres://ngveabouluddqv:48f23c0a0b1ed2de9efa7c7e9fd522c230a2d19b2eabe237df639e2b49e1d82c@ec2-54-170-109-0.eu-west-1.compute.amazonaws.com:5432/d7f1c9hh8pdpbk
 }
 
 # Password validation
