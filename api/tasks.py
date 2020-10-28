@@ -15,12 +15,7 @@ def create_request():
     parse_music.getNews()
     parse_movie.getNews()
     parse_foreign.getNews()
-    update_dynos.update()
-    sleep(1500)
-    update_dynos.update()
-    sleep(1500)
-    update_dynos.update()
-
+    sleep(3300)
 
 while True:
     create_request()
