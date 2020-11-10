@@ -69,3 +69,7 @@ class ForeignNewsView(generics.ListAPIView):
     except:
         queryset = News.objects.all()
         serializer_class = NewsSerializer
+
+class UpdateNewsPoll(generics.RetrieveUpdateAPIView):
+    queryset = News.objects.all()
+    serializer_class = NewsSerializer

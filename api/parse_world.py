@@ -93,7 +93,7 @@ def bbc():
 
             title = soup.find('h1', id='content').get_text()
 
-            content_ = soup.select('div.GridItemConstrainedMedium-sc-12lwanc-2')
+            content_ = soup.select('main div p')
 
             content = ' '.join([str(elem) for elem in content_])
 

@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .views import WorldNewsView, KyrgyzNewsView, SportNewsView, TechnologyNewsView, MovieNewsView, MusicNewsView, \
-    AutoNewsView, ForeignNewsView
+    AutoNewsView, ForeignNewsView, UpdateNewsPoll
 
 urlpatterns = (
     path('world_news', WorldNewsView.as_view()),
@@ -11,5 +11,6 @@ urlpatterns = (
     path('movie_news', MovieNewsView.as_view()),
     path('music_news', MusicNewsView.as_view()),
     path('auto_news', AutoNewsView.as_view()),
-    path('foreign_news', ForeignNewsView.as_view())
+    path('foreign_news', ForeignNewsView.as_view()),
+    path('update_poll/<int:pk>', UpdateNewsPoll.as_view())
 )
