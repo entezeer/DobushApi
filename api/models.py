@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 from django.utils import timezone
+from django.contrib.postgres.fields import ArrayField
 
 
 class Category(models.Model):
@@ -16,6 +17,31 @@ class Category(models.Model):
         return self.name
 
 
+class Poll(models.Model):
+    question = models.TextField()
+    users = ArrayField(models.CharField(max_length=250, blank=True))
+
+    class Meta:
+        verbose_name = 'Опрос'
+        verbose_name_plural = 'Опросы'
+
+    def __str__(self):
+        return self.question
+
+
+class Choice(models.Model):
+    poll = models.ForeignKey(Poll, on_delete=models.CASCADE)
+    answer = models.CharField(max_length=200)
+    count = models.IntegerField(default=0)
+
+    class Meta:
+        verbose_name = 'Вариант ответа'
+        verbose_name_plural = 'Варианты ответа'
+
+    def __str__(self):
+        return self.poll
+
+
 class Source(models.Model):
     title = models.CharField(max_length=250, default=None, null=True, blank=True)
     title_specific = models.CharField(default=None, null=True, blank=True, max_length=250)
@@ -28,6 +54,7 @@ class Source(models.Model):
     img = models.CharField(max_length=250, default=None, null=True, blank=True)
     delete_tags = models.CharField(max_length=250, default=None, null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    poll = models.ForeignKey(Poll, on_delete=models.CASCADE, default=None, null=True, blank=True)
 
     class Meta:
         verbose_name = 'Источник'
@@ -45,7 +72,7 @@ class News(models.Model):
     img = models.CharField(max_length=250, default=None, null=True, blank=True)
     published = models.DateTimeField(default=timezone.now)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    language = models.IntegerField(max_length=10, default=None, null=True, blank=True)
+    language = models.IntegerField(default=None, null=True, blank=True)
 
     class Meta:
         verbose_name = 'Новость'
