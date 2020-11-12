@@ -54,7 +54,6 @@ class Source(models.Model):
     img = models.CharField(max_length=250, default=None, null=True, blank=True)
     delete_tags = models.CharField(max_length=250, default=None, null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    poll = models.ForeignKey(Poll, on_delete=models.CASCADE, default=None, null=True, blank=True)
 
     class Meta:
         verbose_name = 'Источник'
@@ -73,6 +72,7 @@ class News(models.Model):
     published = models.DateTimeField(default=timezone.now)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     language = models.IntegerField(default=None, null=True, blank=True)
+    poll = models.ForeignKey(Poll, on_delete=models.CASCADE, default=None, null=True, blank=True)
 
     class Meta:
         verbose_name = 'Новость'
