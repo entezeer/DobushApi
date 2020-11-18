@@ -12,7 +12,7 @@ class PollsSerializer(serializers.ModelSerializer):
 
 class NewsSerializer(serializers.ModelSerializer):
 
-    polls = PollsSerializer(many=True)
+    poll = PollsSerializer(many=True)
 
     class Meta:
         model = News
