@@ -16,7 +16,7 @@ class WorldNewsView(generics.ListAPIView):
 
 class KyrgyzNewsView(generics.ListAPIView):
     try:
-        queryset = News.objects.filter(category=Category.objects.get(name='В Кыргызстане')).all()
+        queryset = News.objects.filter(category=Category.objects.filter(name='В Кыргызстане')).all()
         serializer_class = NewsSerializer
     except:
         queryset = News.objects.all()
