@@ -8,7 +8,7 @@ class PollsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Poll
         fields = '__all__'
-        depth = 3
+        depth = 1
 
 
 class NewsSerializer(serializers.ModelSerializer):
@@ -17,4 +17,4 @@ class NewsSerializer(serializers.ModelSerializer):
     class Meta:
         model = News
         fields = '__all__'
-        depth = 3
+        depth = 2
