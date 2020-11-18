@@ -3,7 +3,7 @@ from .models import News, Poll
 
 
 class PollsSerializer(serializers.ModelSerializer):
-    choice = serializers.RelatedField(many=True, read_only=True)
+    choice = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
         model = Poll
@@ -12,7 +12,7 @@ class PollsSerializer(serializers.ModelSerializer):
 
 
 class NewsSerializer(serializers.ModelSerializer):
-    poll = PollsSerializer(read_only=True)
+    poll = PollsSerializer()
 
     class Meta:
         model = News
