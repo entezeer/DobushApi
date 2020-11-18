@@ -3,7 +3,7 @@ from .models import News
 
 
 class NewsSerializer(serializers.ModelSerializer):
-    answers = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    choices = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
         model = News
