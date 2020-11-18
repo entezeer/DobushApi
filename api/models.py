@@ -72,7 +72,7 @@ class News(models.Model):
     published = models.DateTimeField(default=timezone.now)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     language = models.IntegerField(default=None, null=True, blank=True)
-    poll = models.ForeignKey(Poll, on_delete=models.CASCADE, default=None, null=True, blank=True, related_name='polls')
+    poll = models.ForeignKey(Poll, on_delete=models.CASCADE, default=None, null=True, blank=True, related_name='poll')
 
     class Meta:
         verbose_name = 'Новость'
