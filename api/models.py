@@ -30,7 +30,7 @@ class Poll(models.Model):
 
 
 class Choice(models.Model):
-    poll = models.ForeignKey(Poll, on_delete=models.CASCADE, related_name='choices')
+    poll = models.ForeignKey(Poll, on_delete=models.CASCADE, related_name='choice')
     answer = models.CharField(max_length=200)
     count = models.IntegerField(default=0)
 

@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import News, Poll
 
 class PollsSerializer(serializers.ModelSerializer):
-    choices = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    choice = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
         model = Poll
