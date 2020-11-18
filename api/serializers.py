@@ -1,9 +1,9 @@
 from rest_framework import serializers
-from .models import News, Poll, Choice
+from .models import News, Poll
 
 
 class PollsSerializer(serializers.ModelSerializer):
-    choice = serializers.PrimaryKeyRelatedField(queryset=Choice.objects.all())
+    choice = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
         model = Poll
