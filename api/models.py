@@ -39,7 +39,7 @@ class Choice(models.Model):
         verbose_name_plural = 'Варианты ответа'
 
     def __str__(self):
-        return self.poll
+        return self.answer
 
 
 class Source(models.Model):
