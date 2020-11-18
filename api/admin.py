@@ -19,4 +19,5 @@ class QuestionAdmin(admin.ModelAdmin):
     inlines = [ChoiceInLine]
 
 
+admin.site.register(Choice)
 admin.site.register(Poll, QuestionAdmin)
