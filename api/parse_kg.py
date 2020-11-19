@@ -18,7 +18,7 @@ session = requests.session()
 
 
 def getNews():
-    News.objects.filter(category=Category.objects.get(name='В Кыргызстане')).all().delete()
+    News.objects.filter(category=Category.objects.get(name='В Кыргызстане')).filter(poll__isnull=True).all().delete()
     getSputnikNews()
     getVestiKgNews()
     # mk()
@@ -44,14 +44,7 @@ def getSputnikNews():
             content = soup.select('div.b-article__text')[0]
 
             try:
-                News.objects.create(
-                    title=title,
-                    content=str(content),
-                    url='https://ru.sputnik.kg' + a['href'],
-                    author='Sputnik.kg',
-                    img=img,
-                    category=Category.objects.get(name='В Кыргызстане')
-                )
+                saveNews(title, str(content), 'https://ru.sputnik.kg' + a['href'], 'Sputnik.kg', img)
             except:
                 print()
         except:
@@ -70,14 +63,7 @@ def getVestiKgNews():
             content = soup.select('div.itemBody')[0]
 
             try:
-                News.objects.create(
-                    title=title,
-                    content=str(content),
-                    url='https://vesti.kg' + a['href'],
-                    author='Vesti.kg',
-                    img=None,
-                    category=Category.objects.get(name='В Кыргызстане')
-                )
+                saveNews(title, str(content), 'https://vesti.kg' + a['href'], 'Vesti.kg', None)
             except:
                 print()
         except:
@@ -103,14 +89,7 @@ def getAkipressNews():
             content = soup.select('div.colored-link-text')
 
             try:
-                News.objects.create(
-                    title=title,
-                    content=str(content[0]),
-                    url=a['href'],
-                    author='Akipress.org',
-                    img=img,
-                    category=Category.objects.get(name='В Кыргызстане')
-                )
+                saveNews(title, str(content[0]), a['href'], 'Akipress.org', img)
             except:
                 print()
         except:
@@ -135,15 +114,20 @@ def mk():
             content = soup.select('div.article__body')
 
             try:
-                News.objects.create(
-                    title=title,
-                    content=str(content),
-                    url=a['href'],
-                    author='Mk.kg',
-                    img=img,
-                    category=Category.objects.get(name='В Кыргызстане')
-                )
+                saveNews(title, str(content), a['href'], 'Mk.kg', img)
             except:
                 print()
         except:
             print()
+
+def saveNews(title, content, url, author, img):
+    isExist = News.objects.filter(title=title).exists()
+    if not isExist:
+        News.objects.create(
+            title=title,
+            content=str(content),
+            url=url,
+            author=author,
+            img=img,
+            category=Category.objects.get(name='В Кыргызстане')
+        )

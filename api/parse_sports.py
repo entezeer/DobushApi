@@ -18,7 +18,7 @@ session = requests.session()
 
 
 def getNews():
-    News.objects.filter(category=Category.objects.get(name='Спорт')).all().delete()
+    News.objects.filter(category=Category.objects.get(name='Спорт')).filter(poll__isnull=True).all().delete()
     getChampionatNews()
     getSportsRuNews()
 
@@ -42,14 +42,7 @@ def getChampionatNews():
             content = soup.select('div.article-content')[0]
 
             try:
-                News.objects.create(
-                    title=title,
-                    content=str(content),
-                    url='https://www.championat.com' + a['href'],
-                    author='Championat.ru',
-                    img=img,
-                    category=Category.objects.get(name='Спорт')
-                )
+                saveNews(title, str(content), 'https://www.championat.com' + a['href'], 'Championat.ru', img)
             except:
                 print()
 
@@ -68,15 +61,21 @@ def getSportsRuNews():
             content = soup.select('div.news-item__content')[0]
 
             try:
-                News.objects.create(
-                    title=title,
-                    content=str(content),
-                    url='https://www.sports.ru' + a['href'],
-                    author='Sports.ru',
-                    img=None,
-                    category=Category.objects.get(name='Спорт')
-                )
+                saveNews(title, str(content), 'https://www.sports.ru' + a['href'], 'Sports.ru', None)
+
             except:
                 print()
         except:
             print()
+
+def saveNews(title, content, url, author, img):
+    isExist = News.objects.filter(title=title).exists()
+    if not isExist:
+        News.objects.create(
+            title=title,
+            content=str(content),
+            url=url,
+            author=author,
+            img=img,
+            category=Category.objects.get(name='Спорт')
+        )

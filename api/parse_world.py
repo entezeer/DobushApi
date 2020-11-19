@@ -17,7 +17,7 @@ headers = {
 session = requests.session()
 
 def getNews():
-    News.objects.filter(category=Category.objects.get(name='В мире')).all().delete()
+    News.objects.filter(category=Category.objects.get(name='В мире')).filter(poll__isnull=True).all().delete()
     mir24()
     bbc()
     lenta()
@@ -39,14 +39,7 @@ def lenta():
 
             url = a.find('guid').text
 
-            News.objects.create(
-                    title=title,
-                    content=content,
-                    url=url,
-                    author='Lenta.ru',
-                    img=img,
-                    category=Category.objects.get(name='В мире')
-            )
+            saveNews(title, content, url, 'Lenta.ru', img)
         except:
             print()
 
@@ -65,14 +58,7 @@ def mir24():
 
             content = soup.find('div', class_='article-content js-mediator-article')
 
-            News.objects.create(
-                    title=title,
-                    content=str(content),
-                    url=j,
-                    author='Mir24.tv',
-                    img=None,
-                    category=Category.objects.get(name='В мире')
-            )
+            saveNews(title, str(content), j, 'Mir24.tv', None)
         except:
             print()
 
@@ -97,14 +83,19 @@ def bbc():
 
             content = ' '.join([str(elem) for elem in content_])
 
-            News.objects.create(
-                    title=title,
-                    content=str(content),
-                    url='https://www.bbc.com' + a['href'],
-                    author='BBC Russian',
-                    img=img,
-                    category=Category.objects.get(name='В мире')
-            )
+            saveNews(title, str(content), 'https://www.bbc.com' + a['href'], 'BBC Russian', img)
         except:
             print()
 
+
+def saveNews(title, content, url, author, img):
+    isExist = News.objects.filter(title=title).exists()
+    if not isExist:
+        News.objects.create(
+            title=title,
+            content=str(content),
+            url=url,
+            author=author,
+            img=img,
+            category=Category.objects.get(name='В мире')
+        )

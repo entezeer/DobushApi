@@ -19,7 +19,7 @@ session = requests.session()
 
 
 def getNews():
-    News.objects.filter(category=Category.objects.get(name='Технологии')).all().delete()
+    News.objects.filter(category=Category.objects.get(name='Технологии')).filter(poll__isnull=True).all().delete()
     getHitechNews()
     getItWorldNews()
 
@@ -43,14 +43,7 @@ def getHitechNews():
             content = soup.select('div.the-excerpt')[0]
 
             try:
-                News.objects.create(
-                    title=title,
-                    content=str(content),
-                    url=a['href'],
-                    author='Hi-Tech.news',
-                    img=img,
-                    category=Category.objects.get(name='Технологии')
-                )
+                saveNews(title, str(content), a['href'], 'Hi-Tech.news', img)
             except:
                 print()
 
@@ -78,18 +71,22 @@ def getItWorldNews():
             content_.remove(content_[0])
             content_.remove(content_[0])
             content = ' '.join([str(elem) for elem in content_])
-
             try:
-                News.objects.create(
-                    title=title,
-                    content=str(content),
-                    url='https://www.it-world.ru' + a['href'],
-                    author='It-World.ru',
-                    img=img,
-                    category=Category.objects.get(name='Технологии')
-                )
+                saveNews(title, str(content), 'https://www.it-world.ru' + a['href'], 'It-World.ru', img)
             except:
                 print()
-
         except:
             print()
+
+
+def saveNews(title, content, url, author, img):
+    isExist = News.objects.filter(title=title).exists()
+    if not isExist:
+        News.objects.create(
+            title=title,
+            content=str(content),
+            url=url,
+            author=author,
+            img=img,
+            category=Category.objects.get(name='Технологии')
+        )

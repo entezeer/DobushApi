@@ -18,7 +18,7 @@ session = requests.session()
 
 
 def getNews():
-    News.objects.filter(category=Category.objects.get(name='Кино')).all().delete()
+    News.objects.filter(category=Category.objects.get(name='Кино')).filter(poll__isnull=True).all().delete()
     getMovieNews()
 
 
@@ -41,16 +41,22 @@ def getMovieNews():
             content = soup.select('div.media-post-setka-inner-html')[0]
 
             try:
-                News.objects.create(
-                    title=title,
-                    content=str(content),
-                    url='https://www.kinopoisk.ru' + a['href'],
-                    author='Kinopoisk.ru',
-                    img=img,
-                    category=Category.objects.get(name='Кино')
-                )
+                saveNews(title, str(content), 'https://www.kinopoisk.ru' + a['href'], 'Kinopoisk.ru', img)
             except:
                 print()
 
         except:
             print()
+
+
+def saveNews(title, content, url, author, img):
+    isExist = News.objects.filter(title=title).exists()
+    if not isExist:
+        News.objects.create(
+            title=title,
+            content=str(content),
+            url=url,
+            author=author,
+            img=img,
+            category=Category.objects.get(name='Кино')
+        )

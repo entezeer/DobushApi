@@ -19,7 +19,7 @@ session = requests.session()
 
 
 def getNews():
-    News.objects.filter(category=Category.objects.get(name='Авто')).all().delete()
+    News.objects.filter(category=Category.objects.get(name='Авто')).filter(poll__isnull=True).all().delete()
     getAdtNews()
     getAutoNews()
 
@@ -45,14 +45,7 @@ def getAdtNews():
             content = soup.select('div#penci-post-entry-inner')[0]
 
             try:
-                News.objects.create(
-                    title=title,
-                    content=str(content),
-                    url=a['href'],
-                    author='adt.by',
-                    img=img,
-                    category=Category.objects.get(name='Авто')
-                )
+                saveNews(title, str(content), a['href'], 'adt.by', img)
             except:
                 print()
 
@@ -83,16 +76,22 @@ def getAutoNews():
             content = soup.select('div.article__text')[0]
 
             try:
-                News.objects.create(
-                    title=title,
-                    content=str(content),
-                    url=a['href'],
-                    author='AutoNews.ru',
-                    img=img,
-                    category=Category.objects.get(name='Авто')
-                )
+                saveNews(title, str(content), a['href'], 'AutoNews.ru', img)
             except:
                 print()
 
         except:
             print()
+
+
+def saveNews(title, content, url, author, img):
+    isExist = News.objects.filter(title=title).exists()
+    if not isExist:
+        News.objects.create(
+            title=title,
+            content=str(content),
+            url=url,
+            author=author,
+            img=img,
+            category=Category.objects.get(name='Авто')
+        )

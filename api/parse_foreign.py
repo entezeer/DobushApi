@@ -17,12 +17,14 @@ headers = {
 }
 session = requests.session()
 
+
 def getNews():
-    News.objects.filter(category=Category.objects.get(name='Иностранные')).all().delete()
+    News.objects.filter(category=Category.objects.get(name='Иностранные')).filter(poll__isnull=True).all().delete()
     getEuronewsNews()
     getCinHuaNews()
     getArabNews()
     getCnnNews()
+
 
 def getArabNews():
     response = requests.get('https://www.alarabiya.net/latest-news', headers=headers)
@@ -45,20 +47,13 @@ def getArabNews():
             content = soup.select('div#body-text')[0]
 
             try:
-                News.objects.create(
-                    title=title,
-                    content=str(content),
-                    url='https://www.alarabiya.net' + a['href'],
-                    author='www.alarabiya.net',
-                    img=img,
-                    category=Category.objects.get(name='Иностранные'),
-                    language=3
-                )
+                saveNews(title, str(content), 'https://www.alarabiya.net' + a['href'], 'www.alarabiya.net', img, 3)
             except:
                 print()
 
         except:
             print()
+
 
 def getEuronewsNews():
     response = requests.get('https://www.euronews.com/news/international', headers=headers)
@@ -76,20 +71,13 @@ def getEuronewsNews():
 
             content = soup.select('div.c-article-content')
             try:
-                News.objects.create(
-                    title=title,
-                    content=str(content),
-                    url='https://www.euronews.com' + a['href'],
-                    author='www.euronews.com',
-                    img=img,
-                    category=Category.objects.get(name='Иностранные'),
-                    language=1
-                )
+                saveNews(title, str(content), 'https://www.euronews.com' + a['href'], 'www.euronews.com', img, 1)
             except:
                 print()
 
         except:
             print()
+
 
 def getCnnNews():
     response = requests.get('https://edition.cnn.com/world', headers=headers)
@@ -103,15 +91,7 @@ def getCnnNews():
             content = soup.select('div.l-container')
 
             try:
-                News.objects.create(
-                    title=title,
-                    content=str(content),
-                    url='https://edition.cnn.com' + a['href'],
-                    author='edition.cnn.com',
-                    img=None,
-                    category=Category.objects.get(name='Иностранные'),
-                    language=1
-                )
+                saveNews(title, str(content), 'https://edition.cnn.com' + a['href'], 'edition.cnn.com', None, 1)
             except:
                 print()
 
@@ -133,20 +113,13 @@ def getCinHuaNews():
             content = soup.select('div#p-detail')
             print(content)
             try:
-                News.objects.create(
-                    title=title,
-                    content=str(content),
-                    url=a['href'],
-                    author='www.xinhuanet.com',
-                    img=None,
-                    category=Category.objects.get(name='Иностранные'),
-                    language=2
-                )
+                saveNews(title, str(content), a['href'], 'www.xinhuanet.com', None, 2)
             except:
                 print()
 
         except:
             print()
+
 
 def getWorldJournalNews():
     response = requests.get('https://www.worldjournal.com/wj/cate/breaking',
@@ -163,17 +136,23 @@ def getWorldJournalNews():
             content = soup.select('section.article-content__editor')
 
             try:
-                News.objects.create(
-                    title=title,
-                    content=str(content),
-                    url=a['href'],
-                    author='www.worldjournal.com',
-                    img=None,
-                    category=Category.objects.get(name='Иностранные'),
-                    language=2
-                )
+                saveNews(title, str(content), a['href'], 'www.worldjournal.com', None, 2)
             except:
                 print()
 
         except:
             print()
+
+
+def saveNews(title, content, url, author, img, language):
+    isExist = News.objects.filter(title=title).exists()
+    if not isExist:
+        News.objects.create(
+            title=title,
+            content=str(content),
+            url=url,
+            author=author,
+            img=img,
+            category=Category.objects.get(name='Иностранные'),
+            language=language
+        )

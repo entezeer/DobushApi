@@ -17,7 +17,7 @@ headers = {
 session = requests.session()
 
 def getNews():
-    News.objects.filter(category=Category.objects.get(name='Музыка')).all().delete()
+    News.objects.filter(category=Category.objects.get(name='Музыка')).filter(poll__isnull=True).all().delete()
     getMusicNews()
 
 def getMusicNews():
@@ -37,16 +37,21 @@ def getMusicNews():
             content = soup.select('div.b-material-wrapper__text')[0]
 
             try:
-                News.objects.create(
-                    title=title,
-                    content=str(content),
-                    url='https://rg.ru' + a['href'],
-                    author='rg.ru',
-                    img=None,
-                    category=Category.objects.get(name='Музыка')
-                )
+                saveNews(title, str(content), 'https://rg.ru' + a['href'], 'rg.ru', None)
             except:
                 print()
 
         except:
             print()
+
+def saveNews(title, content, url, author, img):
+    isExist = News.objects.filter(title=title).exists()
+    if not isExist:
+        News.objects.create(
+            title=title,
+            content=str(content),
+            url=url,
+            author=author,
+            img=img,
+            category=Category.objects.get(name='Музыка')
+        )
