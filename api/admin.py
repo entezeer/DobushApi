@@ -10,7 +10,7 @@ admin.site.register(News)
 
 class ChoiceInLine(admin.TabularInline):
     model = Choice
-    extra = 3
+    extra = 2
 
 
 class QuestionAdmin(admin.ModelAdmin):

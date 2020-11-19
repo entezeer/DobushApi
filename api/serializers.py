@@ -1,14 +1,19 @@
 from rest_framework import serializers
-from .models import News, Poll
+from .models import News, Poll, Choice
+
+
+class ChoiceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Choice
+        fields = '__all__'
 
 
 class PollsSerializer(serializers.ModelSerializer):
-    choice = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    choice = ChoiceSerializer(many=True, read_only=True)
 
     class Meta:
         model = Poll
         fields = '__all__'
-        depth = 1
 
 
 class NewsSerializer(serializers.ModelSerializer):
@@ -17,4 +22,4 @@ class NewsSerializer(serializers.ModelSerializer):
     class Meta:
         model = News
         fields = '__all__'
-        depth = 2
+        depth = 1
