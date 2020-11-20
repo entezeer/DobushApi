@@ -1,9 +1,7 @@
-from django.shortcuts import render
-
 # Create your views here.
 from rest_framework import generics
-from .models import News, Category
-from .serializers import NewsSerializer
+from .models import News, Category, Poll, Choice
+from .serializers import NewsSerializer, PollsSerializer, ChoiceSerializer
 
 
 class WorldNewsView(generics.ListAPIView):
@@ -14,6 +12,10 @@ class WorldNewsView(generics.ListAPIView):
         queryset = News.objects.all()
         serializer_class = NewsSerializer
 
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+
 class KyrgyzNewsView(generics.ListAPIView):
     try:
         queryset = News.objects.filter(category=Category.objects.get(name='В Кыргызстане')).all()
@@ -21,6 +23,7 @@ class KyrgyzNewsView(generics.ListAPIView):
     except:
         queryset = News.objects.all()
         serializer_class = NewsSerializer
+
 
 class MovieNewsView(generics.ListAPIView):
     try:
@@ -30,6 +33,7 @@ class MovieNewsView(generics.ListAPIView):
         queryset = News.objects.all()
         serializer_class = NewsSerializer
 
+
 class MusicNewsView(generics.ListAPIView):
     try:
         queryset = News.objects.filter(category=Category.objects.get(name='Музыка')).all()
@@ -37,6 +41,7 @@ class MusicNewsView(generics.ListAPIView):
     except:
         queryset = News.objects.all()
         serializer_class = NewsSerializer
+
 
 class AutoNewsView(generics.ListAPIView):
     try:
@@ -46,6 +51,7 @@ class AutoNewsView(generics.ListAPIView):
         queryset = News.objects.all()
         serializer_class = NewsSerializer
 
+
 class TechnologyNewsView(generics.ListAPIView):
     try:
         queryset = News.objects.filter(category=Category.objects.get(name='Технологии')).all()
@@ -53,6 +59,7 @@ class TechnologyNewsView(generics.ListAPIView):
     except:
         queryset = News.objects.all()
         serializer_class = NewsSerializer
+
 
 class SportNewsView(generics.ListAPIView):
     try:
@@ -62,6 +69,7 @@ class SportNewsView(generics.ListAPIView):
         queryset = News.objects.all()
         serializer_class = NewsSerializer
 
+
 class ForeignNewsView(generics.ListAPIView):
     try:
         queryset = News.objects.filter(category=Category.objects.get(name="Иностранные")).all()
@@ -70,6 +78,17 @@ class ForeignNewsView(generics.ListAPIView):
         queryset = News.objects.all()
         serializer_class = NewsSerializer
 
-class UpdateNewsPoll(generics.RetrieveUpdateAPIView):
-    queryset = News.objects.all()
-    serializer_class = NewsSerializer
+
+class PollsView(generics.ListAPIView):
+    queryset = Poll.objects.all()
+    serializer_class = PollsSerializer
+
+
+class PollUpdate(generics.RetrieveUpdateAPIView):
+    queryset = Poll.objects.all()
+    serializer_class = PollsSerializer
+
+
+class ChoiceUpdate(generics.RetrieveUpdateAPIView):
+    queryset = Choice.objects.all()
+    serializer_class = ChoiceSerializer

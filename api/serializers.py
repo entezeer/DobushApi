@@ -1,4 +1,8 @@
-from rest_framework import serializers
+from django.http import QueryDict
+from rest_framework import serializers, viewsets, parsers
+from rest_framework.response import Response
+from rest_framework.utils import json
+
 from .models import News, Poll, Choice
 
 
@@ -14,6 +18,7 @@ class PollsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Poll
         fields = '__all__'
+        depth = 2
 
 
 class NewsSerializer(serializers.ModelSerializer):
@@ -23,3 +28,4 @@ class NewsSerializer(serializers.ModelSerializer):
         model = News
         fields = '__all__'
         depth = 2
+
