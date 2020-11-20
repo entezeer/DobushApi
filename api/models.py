@@ -20,6 +20,7 @@ class Category(models.Model):
 class Poll(models.Model):
     question = models.TextField()
     users = ArrayField(models.CharField(max_length=250, blank=True), default=None, null=True, blank=True, max_length=250)
+    date = models.DateTimeField(default=timezone.now)
 
     class Meta:
         verbose_name = 'Опрос'
