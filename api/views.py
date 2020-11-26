@@ -80,7 +80,7 @@ class ForeignNewsView(generics.ListAPIView):
 
 
 class PollsView(generics.ListAPIView):
-    queryset = Poll.objects.all()
+    queryset = Poll.objects.all().order_by('-date')
     serializer_class = PollsSerializer
 
 
