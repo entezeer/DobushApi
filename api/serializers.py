@@ -1,7 +1,4 @@
-from django.http import QueryDict
-from rest_framework import serializers, viewsets, parsers
-from rest_framework.response import Response
-from rest_framework.utils import json
+from rest_framework import serializers
 
 from .models import News, Poll, Choice
 
