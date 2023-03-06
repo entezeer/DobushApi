@@ -90,6 +90,10 @@ DATABASES = {
     }
 
 # postgres://ngveabouluddqv:48f23c0a0b1ed2de9efa7c7e9fd522c230a2d19b2eabe237df639e2b49e1d82c@ec2-54-170-109-0.eu-west-1.compute.amazonaws.com:5432/d7f1c9hh8pdpbk
+# postgres://ngveabouluddqv:48f23c0a0b1ed2de9efa7c7e9fd522c230a2d19b2eabe237df639e2b49e1d82c@ec2-54-170-109-0.eu-west-1.compute.amazonaws.com:5432/d7f1c9hh8pdpbk
+
+
+
 }
 
 # Password validation
