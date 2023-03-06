@@ -1,6 +1,6 @@
 amqp==2.6.0
 beautifulsoup4==4.9.1
-billiard==3.6.3.0
+billiard==3.3.0.18
 bs4==0.0.1
 celery==3.1.15
 Django==2.2.14
